@@ -18,12 +18,17 @@ from kafka import KafkaConsumer  # consumer of events
 # We can make this more sophisticated/elegant but for now it is just
 # hardcoded to the setup I have on my local VMs
 
+# Comma separated list of zip codes
+zip_codes = sys.argv[1]
+
 # acquire the consumer
 # (you will need to change this to your bootstrap server's IP addr)
-consumer = KafkaConsumer (bootstrap_servers="localhost:9092")
+consumer = KafkaConsumer(bootstrap_servers="localhost:9092")
 
 # subscribe to topic
-consumer.subscribe (topics=["utilizations"])
+#consumer.subscribe (topics=["utilizations"])
+
+consumer.subscribe(topics=zip_codes.split(','))
 
 # we keep reading and printing
 for msg in consumer:
@@ -38,11 +43,11 @@ for msg in consumer:
     # Note that I am not showing code to obtain the incoming data as JSON
     # nor am I showing any code to connect to a backend database sink to
     # dump the incoming data. You will have to do that for the assignment.
-    print (str(msg.value, 'ascii'))
+    print(str(msg.value, 'ascii'))
 
 # we are done. As such, we are not going to get here as the above loop
 # is a forever loop.
-consumer.close ()
+consumer.close()
     
 
 

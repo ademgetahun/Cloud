@@ -12,6 +12,7 @@
 #
 
 import os   # need this for popen
+import sys
 import time # for sleep
 from kafka import KafkaConsumer  # consumer of events
 
@@ -23,7 +24,7 @@ zip_codes = sys.argv[1]
 
 # acquire the consumer
 # (you will need to change this to your bootstrap server's IP addr)
-consumer = KafkaConsumer(bootstrap_servers="localhost:9092")
+consumer = KafkaConsumer(bootstrap_servers="192.168.15.5:9092")
 
 # subscribe to topic
 #consumer.subscribe (topics=["utilizations"])

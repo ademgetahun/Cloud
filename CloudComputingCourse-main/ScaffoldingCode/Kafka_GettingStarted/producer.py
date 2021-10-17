@@ -32,11 +32,8 @@ params = {'appid': api_key,
 		  
 # acquire the producer
 # (you will need to change this to your bootstrap server's IP addr)
-producer = KafkaProducer (bootstrap_servers="129.114.25.80:9092", 
+producer = KafkaProducer (bootstrap_servers="192.168.15.4:9092", 
                                           acks=1)  # wait for leader to write to log
-producer = KafkaProducer (bootstrap_servers="localhost:9092", 
-                                          acks=1)
-
 # say we send the contents 100 times after a sleep of 1 sec in between
 for i in range(100):
     
@@ -46,7 +43,7 @@ for i in range(100):
     response = requests.get(url=URL, params=params)
     # read the contents that we wish to send as topic content
     #contents = process.read()
-	contents = response.json()
+    contents = response.json()
 
     # send the contents under topic utilizations. Note that it expects
     # the contents in bytes so we convert it to bytes.
@@ -59,7 +56,7 @@ for i in range(100):
     #producer.send ("utilizations", value=bytes (contents, 'ascii'))
     #producer.flush ()   # try to empty the sending buffer
 
-	producer.send(zip_code, value=bytes(str(contents), 'ascii'))
+    producer.send(zip_code, value=bytes(str(contents), 'ascii'))
     producer.flush()   # try to empty the sending buffer
     # sleep a second
     time.sleep(2)
